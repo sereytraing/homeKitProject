@@ -14,7 +14,11 @@ class AccessoriesVC: DefaultVC {
     @IBOutlet weak var tableView: UITableView!
     
     var selectedHome: HMHome!
-    var lightBulbAccessories: [HMAccessory] = []
+    var lightBulbAccessories: [HMAccessory] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +26,11 @@ class AccessoriesVC: DefaultVC {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(searchNewAccessories))
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.lightBulbAccessories = []
         for accessory in self.selectedHome.accessories {
             for service in accessory.services {
                 if service.serviceType == HMServiceTypeLightbulb {
@@ -30,10 +38,6 @@ class AccessoriesVC: DefaultVC {
                 }
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.tableView.reloadData()
     }
     
@@ -72,13 +76,16 @@ extension AccessoriesVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        /*let serviceListController = ServiceListViewController()
-        serviceListController.selectedAccessory = self.selectedHome.accessories[indexPath.row]
-        self.navigationController?.pushViewController(serviceListController, animated: true)*/
-        
-        if let objectServiceVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ObjectServicesVC") as? ObjectServicesVC {
+        /*if let objectServiceVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ObjectServicesVC") as? ObjectServicesVC {
             objectServiceVC.selectedAccessory = self.lightBulbAccessories[indexPath.row]
             self.navigationController?.pushViewController(objectServiceVC, animated: true)
+        }*/
+        
+        if let searchBluetooth = UIStoryboard.init(name: "Bluetooth", bundle: Bundle.main).instantiateViewController(withIdentifier: "SearchBluetoothVC") as? SearchBluetoothVC {
+            searchBluetooth.selectedAccessory = self.lightBulbAccessories[indexPath.row]
+            self.navigationController?.pushViewController(searchBluetooth, animated: true)
         }
+        
+        
     }
 }

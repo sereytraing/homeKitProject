@@ -29,6 +29,9 @@
 		0FA67BF121AAEF93005DCA18 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA67BF021AAEF93005DCA18 /* Login.storyboard */; };
 		0FA67BF321AAEFC2005DCA18 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BF221AAEFC2005DCA18 /* LoginVC.swift */; };
 		0FA67BF621AAF0D0005DCA18 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */; };
+		0FC4531521B9697600070E8C /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4531421B9697600070E8C /* GestureController.swift */; };
+		0FFB957C21BABAC300C5E4AF /* SearchBluetoothVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFB957B21BABAC300C5E4AF /* SearchBluetoothVC.swift */; };
+		0FFB957E21BABAE500C5E4AF /* Bluetooth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FFB957D21BABAE500C5E4AF /* Bluetooth.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +106,9 @@
 		0FA67BF221AAEFC2005DCA18 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		0FA67BF921AAF2D8005DCA18 /* iOSProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSProject-Bridging-Header.h"; sourceTree = "<group>"; };
+		0FC4531421B9697600070E8C /* GestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
+		0FFB957B21BABAC300C5E4AF /* SearchBluetoothVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBluetoothVC.swift; sourceTree = "<group>"; };
+		0FFB957D21BABAE500C5E4AF /* Bluetooth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Bluetooth.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,13 +159,8 @@
 				0FA67BF421AAF09E005DCA18 /* SDK */,
 				0FA67BF821AAF17F005DCA18 /* Common */,
 				0FA67BF721AAF167005DCA18 /* Login */,
-				0FA67BAA21A93763005DCA18 /* Main.storyboard */,
-				0FA67BE821A94045005DCA18 /* DefaultVC.swift */,
-				0FA67BE421A93E5E005DCA18 /* HomeVC.swift */,
-				0FA67BE621A93FFC005DCA18 /* AccessoriesVC.swift */,
-				0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */,
-				0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */,
-				0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */,
+				0FFB957921BABA7200C5E4AF /* HomeKit */,
+				0FFB957A21BABA8B00C5E4AF /* Bluetooth */,
 			);
 			path = iOSProject;
 			sourceTree = "<group>";
@@ -177,6 +178,7 @@
 		0FA67BC821A93765005DCA18 /* iOSProject WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				0FC4531421B9697600070E8C /* GestureController.swift */,
 				0FA67BC921A93765005DCA18 /* InterfaceController.swift */,
 				0FA67BCB21A93765005DCA18 /* ExtensionDelegate.swift */,
 				0FA67BCD21A93765005DCA18 /* NotificationController.swift */,
@@ -222,6 +224,29 @@
 				0FA67BB221A93764005DCA18 /* Info.plist */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		0FFB957921BABA7200C5E4AF /* HomeKit */ = {
+			isa = PBXGroup;
+			children = (
+				0FA67BAA21A93763005DCA18 /* Main.storyboard */,
+				0FA67BE821A94045005DCA18 /* DefaultVC.swift */,
+				0FA67BE421A93E5E005DCA18 /* HomeVC.swift */,
+				0FA67BE621A93FFC005DCA18 /* AccessoriesVC.swift */,
+				0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */,
+				0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */,
+				0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */,
+			);
+			path = HomeKit;
+			sourceTree = "<group>";
+		};
+		0FFB957A21BABA8B00C5E4AF /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				0FFB957B21BABAC300C5E4AF /* SearchBluetoothVC.swift */,
+				0FFB957D21BABAE500C5E4AF /* Bluetooth.storyboard */,
+			);
+			path = Bluetooth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FFB957E21BABAE500C5E4AF /* Bluetooth.storyboard in Resources */,
 				0FA67BF121AAEF93005DCA18 /* Login.storyboard in Resources */,
 				0FA67BB121A93764005DCA18 /* LaunchScreen.storyboard in Resources */,
 				0FA67BAE21A93764005DCA18 /* Assets.xcassets in Resources */,
@@ -369,6 +395,7 @@
 				0FA67BE521A93E5E005DCA18 /* HomeVC.swift in Sources */,
 				0FA67BA721A93763005DCA18 /* AppDelegate.swift in Sources */,
 				0FA67BE721A93FFC005DCA18 /* AccessoriesVC.swift in Sources */,
+				0FFB957C21BABAC300C5E4AF /* SearchBluetoothVC.swift in Sources */,
 				0FA67BEB21A94306005DCA18 /* SearchAccessoriesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FA67BCE21A93765005DCA18 /* NotificationController.swift in Sources */,
+				0FC4531521B9697600070E8C /* GestureController.swift in Sources */,
 				0FA67BCC21A93765005DCA18 /* ExtensionDelegate.swift in Sources */,
 				0FA67BCA21A93765005DCA18 /* InterfaceController.swift in Sources */,
 			);

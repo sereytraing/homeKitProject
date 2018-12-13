@@ -23,9 +23,14 @@ class ObjectServicesVC: DefaultVC {
         self.tableView.dataSource = self
         
         for service in self.selectedAccessory.services {
-            if service.serviceType != HMServiceTypeAccessoryInformation {
+            /*if service.serviceType != HMServiceTypeAccessoryInformation {
+                self.services.append(service)
+            }*/
+            
+            if service.serviceType == HMServiceTypeLightbulb {
                 self.services.append(service)
             }
+            
         }
     }
 }

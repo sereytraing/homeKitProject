@@ -8,6 +8,7 @@
 
 import UIKit
 import HomeKit
+import WatchConnectivity
 
 class HomeVC: DefaultVC {
     
