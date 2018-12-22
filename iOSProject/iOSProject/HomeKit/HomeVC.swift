@@ -13,19 +13,22 @@ import WatchConnectivity
 class HomeVC: DefaultVC {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addView: UIView!
     
     let homeManager = HMHomeManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "HomeApp"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewHome))
         self.homeManager.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)
+        self.addView.layer.cornerRadius = 15.0
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    @objc func createNewHome() {
+    @IBAction func addClicked(_ sender: Any) {
         let alertController = UIAlertController(title: "Create Home", message: nil, preferredStyle: .alert)
         alertController.addTextField { (txtField) in
             txtField.placeholder = "Home name"
@@ -48,9 +51,14 @@ extension HomeVC: UITableViewDataSource {
         return self.homeManager.homes.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = self.homeManager.homes[indexPath.row].name
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellAccessoryName, for: indexPath) as! CellAccesory
+        cell.bindData(title: self.homeManager.homes[indexPath.row].name)
+        cell.view.backgroundColor = UIColor.white
         return cell
     }
 }

@@ -28,6 +28,8 @@
 		0FA67BEF21A97FB2005DCA18 /* CharacVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */; };
 		0FA67BF621AAF0D0005DCA18 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */; };
 		0FC4531521B9697600070E8C /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4531421B9697600070E8C /* GestureController.swift */; };
+		0FE9EE6221CEAD1A00FEE0D0 /* CellAccessory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9EE6121CEAD1A00FEE0D0 /* CellAccessory.xib */; };
+		0FF0244E21CEA9D500401CED /* CellAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF0244D21CEA9D500401CED /* CellAccessory.swift */; };
 		0FFB957C21BABAC300C5E4AF /* SearchBluetoothVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFB957B21BABAC300C5E4AF /* SearchBluetoothVC.swift */; };
 		0FFB957E21BABAE500C5E4AF /* Bluetooth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FFB957D21BABAE500C5E4AF /* Bluetooth.storyboard */; };
 /* End PBXBuildFile section */
@@ -102,6 +104,8 @@
 		0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacVC.swift; sourceTree = "<group>"; };
 		0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		0FC4531421B9697600070E8C /* GestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
+		0FE9EE6121CEAD1A00FEE0D0 /* CellAccessory.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellAccessory.xib; sourceTree = "<group>"; };
+		0FF0244D21CEA9D500401CED /* CellAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAccessory.swift; sourceTree = "<group>"; };
 		0FFB957B21BABAC300C5E4AF /* SearchBluetoothVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBluetoothVC.swift; sourceTree = "<group>"; };
 		0FFB957D21BABAE500C5E4AF /* Bluetooth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Bluetooth.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -210,9 +214,19 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		0FE9EE5E21CEAB6600FEE0D0 /* CellAccessory */ = {
+			isa = PBXGroup;
+			children = (
+				0FF0244D21CEA9D500401CED /* CellAccessory.swift */,
+				0FE9EE6121CEAD1A00FEE0D0 /* CellAccessory.xib */,
+			);
+			path = CellAccessory;
+			sourceTree = "<group>";
+		};
 		0FFB957921BABA7200C5E4AF /* HomeKit */ = {
 			isa = PBXGroup;
 			children = (
+				0FE9EE5E21CEAB6600FEE0D0 /* CellAccessory */,
 				0FA67BAA21A93763005DCA18 /* Main.storyboard */,
 				0FA67BE821A94045005DCA18 /* DefaultVC.swift */,
 				0FA67BE421A93E5E005DCA18 /* HomeVC.swift */,
@@ -344,6 +358,7 @@
 				0FA67BB121A93764005DCA18 /* LaunchScreen.storyboard in Resources */,
 				0FA67BAE21A93764005DCA18 /* Assets.xcassets in Resources */,
 				0FA67BAC21A93763005DCA18 /* Main.storyboard in Resources */,
+				0FE9EE6221CEAD1A00FEE0D0 /* CellAccessory.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +386,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FF0244E21CEA9D500401CED /* CellAccessory.swift in Sources */,
 				0FA67BE921A94045005DCA18 /* DefaultVC.swift in Sources */,
 				0FA67BED21A94577005DCA18 /* ObjectServicesVC.swift in Sources */,
 				0FA67BEF21A97FB2005DCA18 /* CharacVC.swift in Sources */,

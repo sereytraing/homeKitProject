@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellAccessory" rowHeight="109" id="7y4-N6-10I" customClass="CellAccesory" customModule="iOSProject" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="419" height="109"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7y4-N6-10I" id="qLZ-xG-6rz">
+                <rect key="frame" x="0.0" y="0.0" width="419" height="108.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4F-Kl-cpg">
+                        <rect key="frame" x="20" y="20" width="379" height="68.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SR9-BP-Low">
+                                <rect key="frame" x="20" y="24" width="339" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.30864568640000001" blue="0.1004922945" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SR9-BP-Low" firstAttribute="leading" secondItem="O4F-Kl-cpg" secondAttribute="leading" constant="20" id="3c7-nJ-BM6"/>
+                            <constraint firstItem="SR9-BP-Low" firstAttribute="centerY" secondItem="O4F-Kl-cpg" secondAttribute="centerY" id="dza-un-Nfz"/>
+                            <constraint firstAttribute="trailing" secondItem="SR9-BP-Low" secondAttribute="trailing" constant="20" id="sZf-5e-GsD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="O4F-Kl-cpg" firstAttribute="top" secondItem="qLZ-xG-6rz" secondAttribute="top" constant="20" id="BCG-jj-BFD"/>
+                    <constraint firstAttribute="trailing" secondItem="O4F-Kl-cpg" secondAttribute="trailing" constant="20" id="Ejo-9J-kNr"/>
+                    <constraint firstItem="O4F-Kl-cpg" firstAttribute="leading" secondItem="qLZ-xG-6rz" secondAttribute="leading" constant="20" id="OAJ-qW-Yad"/>
+                    <constraint firstAttribute="bottom" secondItem="O4F-Kl-cpg" secondAttribute="bottom" constant="20" id="bDz-JF-weF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="containerView" destination="O4F-Kl-cpg" id="hog-lm-SrQ"/>
+                <outlet property="titleLabel" destination="SR9-BP-Low" id="l0N-te-dy7"/>
+                <outlet property="view" destination="qLZ-xG-6rz" id="WVc-cR-P0H"/>
+            </connections>
+            <point key="canvasLocation" x="188" y="-76.911544227886068"/>
+        </tableViewCell>
+    </objects>
+</document>

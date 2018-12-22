@@ -11,6 +11,8 @@ import HomeKit
 
 class AccessoriesVC: DefaultVC {
 
+    @IBOutlet weak var backView: UIView!
+    @IBOutlet weak var addView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     var selectedHome: HMHome!
@@ -25,7 +27,9 @@ class AccessoriesVC: DefaultVC {
         self.title = self.selectedHome.name
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(searchNewAccessories))
+        self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)
+        self.backView.layer.cornerRadius = 15.0
+        self.addView.layer.cornerRadius = 15.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +45,11 @@ class AccessoriesVC: DefaultVC {
         self.tableView.reloadData()
     }
     
-    @objc func searchNewAccessories() {
+    @IBAction func backClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func addClicked(_ sender: Any) {
         if let searchAccessoriesVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SearchAccessoriesVC") as? SearchAccessoriesVC {
             searchAccessoriesVC.selectedHome = self.selectedHome
             self.navigationController?.pushViewController(searchAccessoriesVC, animated: true)
@@ -54,9 +62,13 @@ extension AccessoriesVC: UITableViewDataSource {
         return self.lightBulbAccessories.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = self.lightBulbAccessories[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellAccessoryName, for: indexPath) as! CellAccesory
+        cell.bindData(title: self.lightBulbAccessories[indexPath.row].name)
         return cell
     }
 }

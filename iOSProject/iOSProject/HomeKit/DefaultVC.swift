@@ -11,6 +11,8 @@ import HomeKit
 
 class DefaultVC: UIViewController {
 
+    let cellAccessoryName = "CellAccessory"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
