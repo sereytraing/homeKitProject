@@ -49,19 +49,10 @@
                                     <constraint firstItem="7Zx-OR-yDW" firstAttribute="centerX" secondItem="rYf-Hd-xgm" secondAttribute="centerX" id="pc8-ud-Mdz"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z16-FK-4jO">
-                                <rect key="frame" x="165.5" y="49" width="44" height="30"/>
-                                <state key="normal" title="Watch"/>
-                                <connections>
-                                    <action selector="watchClicked:" destination="z6N-K3-cHn" eventType="touchUpInside" id="VZn-ka-d06"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2go-0l-68W" firstAttribute="top" secondItem="ReM-vm-iy4" secondAttribute="top" id="4GC-e8-JYq"/>
-                            <constraint firstItem="Z16-FK-4jO" firstAttribute="top" secondItem="ReM-vm-iy4" secondAttribute="top" constant="29" id="8GV-tT-L2B"/>
-                            <constraint firstItem="Z16-FK-4jO" firstAttribute="centerX" secondItem="sAh-D1-2At" secondAttribute="centerX" id="T2N-JU-rfh"/>
                             <constraint firstItem="ReM-vm-iy4" firstAttribute="trailing" secondItem="rYf-Hd-xgm" secondAttribute="trailing" id="UXX-3t-3TD"/>
                             <constraint firstItem="ReM-vm-iy4" firstAttribute="bottom" secondItem="2go-0l-68W" secondAttribute="bottom" id="Wa3-pa-Ywh"/>
                             <constraint firstItem="rYf-Hd-xgm" firstAttribute="top" secondItem="ReM-vm-iy4" secondAttribute="top" id="cwG-GY-Re9"/>

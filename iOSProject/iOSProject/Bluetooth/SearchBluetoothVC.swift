@@ -17,10 +17,8 @@ class SearchBluetoothVC: DefaultVC {
     @IBOutlet weak var connectedView: UIView!
     @IBOutlet weak var loaderView: UIView!
     var centralManager: CBCentralManager!
-    var heartRatePeripheral: CBPeripheral!
-    let heartRateServiceCBUUID = CBUUID(string: "E4ABED4F-0FD2-1382-C991-1374801BB8C1")
-    let heartRateService = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-    let heartRateCharacNotify = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    var soundCaptorPeripheral: CBPeripheral!
+    let soundCaptorCharacNotify = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
     
     ///HomeKit
     var selectedAccessory: HMAccessory!
@@ -38,16 +36,11 @@ class SearchBluetoothVC: DefaultVC {
         }
     }
     
-    @IBAction func watchClicked(_ sender: Any) {
-        
-    }
-    
     func initWatchConnect() {
         let session = WCSession.default
         guard session.isWatchAppInstalled, session.isReachable else {
             return
         }
-        //session.sendMessage(["start": "yes"], replyHandler: nil, errorHandler: nil)
         session.sendMessage(["start": "yes"], replyHandler: {
             reply in
             print(reply)
@@ -62,49 +55,29 @@ class SearchBluetoothVC: DefaultVC {
         }
     }
     
-    private func heartRate(from characteristic: CBCharacteristic) -> Int {
-        guard let characteristicData = characteristic.value else { return -1 }
+    private func soundCaptorConvert(from characteristic: CBCharacteristic) -> Int {
+        guard let characteristicData = characteristic.value else {
+            return -1
+        }
         let byteArray = [UInt8](characteristicData)
-        
         let firstBitValue = byteArray[0] & 0xFF
         print(firstBitValue)
         return Int(byteArray[0])
-        
-        /*if firstBitValue == 0 {
-         // Heart Rate Value Format is in the 2nd byte
-         return Int(byteArray[1])
-         } else {
-         // Heart Rate Value Format is in the 2nd and 3rd bytes
-         return (Int(byteArray[1]) << 8) + Int(byteArray[2])
-         }*/
     }
     
-    func onHeartRateReceived(_ heartRate: Int) {
-        self.nameLabel.text = String(heartRate)
-        let tmp = CGFloat(CGFloat(heartRate) / 100.0)
+    func soundReceived(_ sound: Int) {
+        self.nameLabel.text = String(sound)
+        let tmp = CGFloat(CGFloat(sound) / 100.0)
         print("val formule: \(tmp)")
         self.connectedView.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
-        //print("BPM: \(heartRate)")
-        
         
         //HomeKit
         if let service = service {
             for charac in service.characteristics {
-                //Color
-                if charac.characteristicType == HMCharacteristicTypeHue {
-                    if var value = charac.value as? Int {
-                        value = Int(Double(heartRate)*3.6)
-                        /*charac.writeValue(value) {
-                            err in
-                            print(err)
-                        }*/
-                    }
-                }
-                
                 //Brightness
                 if charac.characteristicType == HMCharacteristicTypeBrightness {
                     if var value = charac.value as? Int {
-                        value = heartRate
+                        value = sound
                         charac.writeValue(value) {
                             err in
                             print(err)
@@ -130,37 +103,29 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
         case .poweredOff:
             print("central.state is .poweredOff")
         case .poweredOn:
-            //centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
-            centralManager.scanForPeripherals(withServices: nil)
+            self.centralManager.scanForPeripherals(withServices: nil)
         }
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if peripheral.name == "SoundCaptor" {
-            self.heartRatePeripheral = peripheral
-            centralManager.stopScan()
+            self.soundCaptorPeripheral = peripheral
+            self.centralManager.stopScan()
             self.nameLabel.text = peripheral.name
-            heartRatePeripheral.delegate = self
-            
-            print(peripheral)
-            centralManager.connect(heartRatePeripheral)
-            
+            self.soundCaptorPeripheral.delegate = self
+            self.centralManager.connect(self.soundCaptorPeripheral)
         }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("connected")
-        print(peripheral)
         self.initWatchConnect()
         self.loaderView.isHidden = true
         self.connectedView.isHidden = false
-        //self.nameLabel.text = peripheral.name
-        heartRatePeripheral.discoverServices(nil)
+        self.soundCaptorPeripheral.discoverServices(nil)
     }
 }
 
 extension SearchBluetoothVC: CBPeripheralDelegate {
-    
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
         
@@ -174,11 +139,6 @@ extension SearchBluetoothVC: CBPeripheralDelegate {
         guard let characteristics = service.characteristics else { return }
         
         for characteristic in characteristics {
-            
-            if characteristic.properties.contains(.read) {
-                print("\(characteristic.uuid): properties contains .read")
-            }
-            
             if characteristic.properties.contains(.notify) {
                 print("\(characteristic.uuid): properties contains .notify")
                 peripheral.setNotifyValue(true, for: characteristic)
@@ -188,9 +148,9 @@ extension SearchBluetoothVC: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         switch characteristic.uuid {
-        case self.heartRateCharacNotify:
-            let bpm = heartRate(from: characteristic)
-            onHeartRateReceived(bpm)
+        case self.soundCaptorCharacNotify:
+            let value = self.soundCaptorConvert(from: characteristic)
+            self.soundReceived(value)
         default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
@@ -199,16 +159,10 @@ extension SearchBluetoothVC: CBPeripheralDelegate {
 
 extension SearchBluetoothVC: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        
     }
     
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        
-    }
-    
-    func sessionDidDeactivate(_ session: WCSession) {
-        
-    }
+    func sessionDidBecomeInactive(_ session: WCSession) {}
+    func sessionDidDeactivate(_ session: WCSession) {}
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         replyHandler(["response": "envoyé depuis iphone"])

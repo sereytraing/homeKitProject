@@ -26,14 +26,6 @@ class InterfaceController: WKInterfaceController {
                 return
             }
         }
-        
-        /*session.sendMessage([
-            "app": "start"], replyHandler: { reply in print(reply) }) {
-                (err) in
-                print(err)
-        }
-        
-        self.pushController(withName: "GestureController", context: nil)*/
     }
     
     override func willActivate() {
@@ -53,19 +45,15 @@ extension InterfaceController: WCSessionDelegate {
         print("Watch OK \(activationState)")
     }
     
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
-        print(userInfo)
-    }
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {}
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         replyHandler(["response": "envoyé depuis watch"])
-        print(message)
         if let command = message["start"] as? String {
             switch command {
             case "yes":
                 self.pushController(withName: "GestureController", context: nil)
                 break
-                
             default:
                 break
             }

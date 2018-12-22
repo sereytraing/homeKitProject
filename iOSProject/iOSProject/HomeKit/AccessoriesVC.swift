@@ -51,7 +51,6 @@ class AccessoriesVC: DefaultVC {
 
 extension AccessoriesVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return self.selectedHome.accessories.count
         return self.lightBulbAccessories.count
     }
     
@@ -76,6 +75,7 @@ extension AccessoriesVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Testing Service and Charac'
         /*if let objectServiceVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ObjectServicesVC") as? ObjectServicesVC {
             objectServiceVC.selectedAccessory = self.lightBulbAccessories[indexPath.row]
             self.navigationController?.pushViewController(objectServiceVC, animated: true)
@@ -85,7 +85,5 @@ extension AccessoriesVC: UITableViewDelegate {
             searchBluetooth.selectedAccessory = self.lightBulbAccessories[indexPath.row]
             self.navigationController?.pushViewController(searchBluetooth, animated: true)
         }
-        
-        
     }
 }

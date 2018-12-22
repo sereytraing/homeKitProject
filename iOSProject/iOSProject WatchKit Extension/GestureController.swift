@@ -12,7 +12,6 @@ import WatchConnectivity
 
 class GestureController: WKInterfaceController {
 
-    @IBOutlet weak var brightnessSlider: WKInterfaceSlider!
     @IBOutlet weak var hueSlider: WKInterfaceSlider!
     
     override func awake(withContext context: Any?) {
