@@ -47,7 +47,7 @@ class GestureController: WKInterfaceController {
     }
     
     func sendValue(value: Int) {
-        let val = Double(value) / 360
+        let val = Double(value) / 36
         self.hueSlider.setColor(UIColor.init(hue: CGFloat(val), saturation: 1.0, brightness: 1.0, alpha: 1.0))
         let session = WCSession.default
         guard session.isReachable else {
