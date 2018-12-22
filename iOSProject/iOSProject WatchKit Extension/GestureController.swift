@@ -15,14 +15,26 @@ class GestureController: WKInterfaceController {
     @IBOutlet weak var hueSlider: WKInterfaceSlider!
     
     let keyHue = "hue"
+    var crownAccumulator = 0.0
+    var hueValue: Int = 0 {
+        didSet {
+            if self.hueValue < 0 || self.hueValue > 36 {
+                self.hueValue = oldValue
+            }
+            self.hueSlider.setValue(Float(self.hueValue))
+            self.sendValue(value: self.hueValue)
+        }
+    }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        self.crownSequencer.delegate = self
     }
 
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        self.crownSequencer.focus()
     }
 
     override func didDeactivate() {
@@ -31,15 +43,33 @@ class GestureController: WKInterfaceController {
     }
 
     @IBAction func sliderClicked(_ value: Float) {
+        self.sendValue(value: Int(value))
+    }
+    
+    func sendValue(value: Int) {
         let session = WCSession.default
         guard session.isReachable else {
             return
         }
-        session.sendMessage([self.keyHue: value*10.0], replyHandler: {
-            _ in
+        session.sendMessage([self.keyHue: value*10], replyHandler: {
+            reply in
+            print(reply)
         }, errorHandler: {
             e in
             print(e)
         })
+    }
+}
+
+extension GestureController: WKCrownDelegate {
+    func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
+        self.crownAccumulator += rotationalDelta
+        if crownAccumulator > 0.1 {
+            self.hueValue += 1
+            self.crownAccumulator = 0.0
+        } else if crownAccumulator < -0.1 {
+            self.hueValue -= 1
+            self.crownAccumulator = 0.0
+        }
     }
 }

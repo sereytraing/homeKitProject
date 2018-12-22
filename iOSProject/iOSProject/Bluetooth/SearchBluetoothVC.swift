@@ -48,7 +48,8 @@ class SearchBluetoothVC: DefaultVC {
             return
         }
         session.sendMessage([self.keyStart: self.yesValue], replyHandler: {
-            _ in
+            reply in
+            print(reply)
         }, errorHandler: {
             e in
             print(e)
