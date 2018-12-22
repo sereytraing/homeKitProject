@@ -19,7 +19,6 @@ class HomeVC: DefaultVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "HomeApp"
         self.homeManager.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -29,12 +28,12 @@ class HomeVC: DefaultVC {
     }
     
     @IBAction func addClicked(_ sender: Any) {
-        let alertController = UIAlertController(title: "Create Home", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Créer une maison", message: nil, preferredStyle: .alert)
         alertController.addTextField { (txtField) in
-            txtField.placeholder = "Home name"
+            txtField.placeholder = "Nom de la maison"
         }
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        alertController.addAction(UIAlertAction(title: "Submit", style: .default, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: "Annuler", style: .cancel))
+        alertController.addAction(UIAlertAction(title: "Créer", style: .default, handler: { (action) in
             guard let name = alertController.textFields?[0].text else {
                 return
             }
