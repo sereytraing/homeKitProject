@@ -16,13 +16,19 @@ class SearchBluetoothVC: DefaultVC {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var connectedView: UIView!
     @IBOutlet weak var loaderView: UIView!
+    
+    //Bluetooth
     var centralManager: CBCentralManager!
     var soundCaptorPeripheral: CBPeripheral!
     let soundCaptorCharacNotify = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    let soundCaptorName = "SoundCaptor"
     
     ///HomeKit
     var selectedAccessory: HMAccessory!
     var service: HMService?
+    let keyHue = "hue"
+    let keyStart = "start"
+    let yesValue = "yes"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +47,8 @@ class SearchBluetoothVC: DefaultVC {
         guard session.isWatchAppInstalled, session.isReachable else {
             return
         }
-        session.sendMessage(["start": "yes"], replyHandler: {
-            reply in
-            print(reply)
+        session.sendMessage([self.keyStart: self.yesValue], replyHandler: {
+            _ in
         }, errorHandler: {
             e in
             print(e)
@@ -55,7 +60,7 @@ class SearchBluetoothVC: DefaultVC {
         }
     }
     
-    private func soundCaptorConvert(from characteristic: CBCharacteristic) -> Int {
+    func soundCaptorConvert(from characteristic: CBCharacteristic) -> Int {
         guard let characteristicData = characteristic.value else {
             return -1
         }
@@ -67,9 +72,9 @@ class SearchBluetoothVC: DefaultVC {
     
     func soundReceived(_ sound: Int) {
         self.nameLabel.text = String(sound)
-        let tmp = CGFloat(CGFloat(sound) / 100.0)
+        /*let tmp = CGFloat(CGFloat(sound) / 100.0)
         print("val formule: \(tmp)")
-        self.connectedView.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        self.connectedView.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)*/
         
         //HomeKit
         if let service = service {
@@ -108,7 +113,7 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        if peripheral.name == "SoundCaptor" {
+        if peripheral.name == self.soundCaptorName {
             self.soundCaptorPeripheral = peripheral
             self.centralManager.stopScan()
             self.nameLabel.text = peripheral.name
@@ -123,6 +128,10 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
         self.connectedView.isHidden = false
         self.soundCaptorPeripheral.discoverServices(nil)
     }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 extension SearchBluetoothVC: CBPeripheralDelegate {
@@ -131,7 +140,6 @@ extension SearchBluetoothVC: CBPeripheralDelegate {
         
         for service in services {
             peripheral.discoverCharacteristics(nil, for: service)
-            print(service)
         }
     }
     
@@ -140,7 +148,6 @@ extension SearchBluetoothVC: CBPeripheralDelegate {
         
         for characteristic in characteristics {
             if characteristic.properties.contains(.notify) {
-                print("\(characteristic.uuid): properties contains .notify")
                 peripheral.setNotifyValue(true, for: characteristic)
             }
         }
@@ -166,8 +173,7 @@ extension SearchBluetoothVC: WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         replyHandler(["response": "envoyé depuis iphone"])
-        print(message)
-        if let hue = message["hue"] as? Double {
+        if let hue = message[self.keyHue] as? Double {
             if let service = service {
                 for charac in service.characteristics {
                     //Color
@@ -176,7 +182,7 @@ extension SearchBluetoothVC: WCSessionDelegate {
                             value = Int(hue)
                             charac.writeValue(value) {
                              err in
-                             print(err)
+                                print(err)
                              }
                         }
                     }

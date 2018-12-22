@@ -216,8 +216,8 @@
 				0FA67BAA21A93763005DCA18 /* Main.storyboard */,
 				0FA67BE821A94045005DCA18 /* DefaultVC.swift */,
 				0FA67BE421A93E5E005DCA18 /* HomeVC.swift */,
-				0FA67BE621A93FFC005DCA18 /* AccessoriesVC.swift */,
 				0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */,
+				0FA67BE621A93FFC005DCA18 /* AccessoriesVC.swift */,
 				0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */,
 				0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */,
 			);

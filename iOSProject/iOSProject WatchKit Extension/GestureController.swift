@@ -14,6 +14,8 @@ class GestureController: WKInterfaceController {
 
     @IBOutlet weak var hueSlider: WKInterfaceSlider!
     
+    let keyHue = "hue"
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -35,9 +37,8 @@ class GestureController: WKInterfaceController {
         guard session.isReachable else {
             return
         }
-        session.sendMessage(["hue": value*10.0], replyHandler: {
-            reply in
-            print(reply)
+        session.sendMessage([self.keyHue: value*10.0], replyHandler: {
+            _ in
         }, errorHandler: {
             e in
             print(e)

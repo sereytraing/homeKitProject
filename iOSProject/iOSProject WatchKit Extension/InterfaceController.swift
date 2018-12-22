@@ -14,6 +14,9 @@ class InterfaceController: WKInterfaceController {
     
     @IBOutlet weak var titleLabel: WKInterfaceLabel!
     
+    let keyStart = "start"
+    let yesValue = "yes"
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
@@ -49,9 +52,9 @@ extension InterfaceController: WCSessionDelegate {
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         replyHandler(["response": "envoyé depuis watch"])
-        if let command = message["start"] as? String {
-            switch command {
-            case "yes":
+        if let value = message[self.keyStart] as? String {
+            switch value {
+            case self.yesValue:
                 self.pushController(withName: "GestureController", context: nil)
                 break
             default:
