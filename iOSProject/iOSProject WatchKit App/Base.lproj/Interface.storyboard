@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14460.31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
+    <device id="watch44" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -13,7 +13,9 @@
             <objects>
                 <controller identifier="InterfaceController" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="iOSProject_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <label width="1" height="1" alignment="left" text="Aucune ampoule connectée" textAlignment="center" numberOfLines="0" id="f1d-JF-eNP"/>
+                        <label width="1" height="1" alignment="left" text="Aucune ampoule connectée" textAlignment="center" numberOfLines="0" id="f1d-JF-eNP">
+                            <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="titleLabel" destination="f1d-JF-eNP" id="80k-9w-4wL"/>
@@ -27,8 +29,9 @@
             <objects>
                 <controller identifier="GestureController" id="LRt-Kh-5aZ" customClass="GestureController" customModule="iOSProject_WatchKit_Extension">
                     <items>
-                        <slider width="1" alignment="left" continuous="YES" maximum="36" steps="36" id="Nzi-qN-Xwi">
-                            <color key="color" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <imageView width="0.59999999999999998" alignment="center" verticalAlignment="center" image="colorsBar" id="Na9-Xv-Wej"/>
+                        <slider width="1" alignment="left" verticalAlignment="center" continuous="YES" maximum="36" steps="36" id="Nzi-qN-Xwi">
+                            <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="sliderClicked:" destination="LRt-Kh-5aZ" id="zPL-lR-JuE"/>
                             </connections>
