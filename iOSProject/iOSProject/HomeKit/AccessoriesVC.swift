@@ -14,6 +14,7 @@ class AccessoriesVC: DefaultVC {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var addView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var selectedHome: HMHome!
     var lightBulbAccessories: [HMAccessory] = [] {
@@ -24,7 +25,7 @@ class AccessoriesVC: DefaultVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.selectedHome.name
+        self.titleLabel.text = self.selectedHome.name
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)

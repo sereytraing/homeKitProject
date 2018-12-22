@@ -13,7 +13,7 @@ import WatchConnectivity
 
 class SearchBluetoothVC: DefaultVC {
 
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var connectedView: UIView!
     @IBOutlet weak var loaderView: UIView!
     
@@ -32,14 +32,19 @@ class SearchBluetoothVC: DefaultVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.backView.layer.cornerRadius = 15.0
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
-        
+
         //HomeKit
         for service in self.selectedAccessory.services {
             if service.serviceType == HMServiceTypeLightbulb {
                 self.service = service
             }
         }
+    }
+    
+    @IBAction func backClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func initWatchConnect() {
@@ -72,7 +77,6 @@ class SearchBluetoothVC: DefaultVC {
     }
     
     func soundReceived(_ sound: Int) {
-        self.nameLabel.text = String(sound)
         /*let tmp = CGFloat(CGFloat(sound) / 100.0)
         print("val formule: \(tmp)")
         self.connectedView.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)*/
@@ -117,7 +121,6 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
         if peripheral.name == self.soundCaptorName {
             self.soundCaptorPeripheral = peripheral
             self.centralManager.stopScan()
-            self.nameLabel.text = peripheral.name
             self.soundCaptorPeripheral.delegate = self
             self.centralManager.connect(self.soundCaptorPeripheral)
         }

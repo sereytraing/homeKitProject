@@ -11,6 +11,7 @@ import HomeKit
 
 class SearchAccessoriesVC: DefaultVC {
 
+    @IBOutlet weak var backView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     var selectedHome: HMHome!
@@ -26,16 +27,22 @@ class SearchAccessoriesVC: DefaultVC {
         self.title = "Searching..."
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)
         self.accessoryBrowser = HMAccessoryBrowser()
         self.accessoryBrowser.delegate = self
         self.accessoryBrowser.startSearchingForNewAccessories()
+        self.backView.layer.cornerRadius = 15.0
+    }
+    
+    @IBAction func backClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension SearchAccessoriesVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = self.accessories[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.cellAccessoryName, for: indexPath) as! CellAccesory
+        cell.bindData(title: self.accessories[indexPath.row].name)
         return cell
     }
     
