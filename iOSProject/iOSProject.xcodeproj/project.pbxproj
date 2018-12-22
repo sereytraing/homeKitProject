@@ -26,8 +26,6 @@
 		0FA67BEB21A94306005DCA18 /* SearchAccessoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */; };
 		0FA67BED21A94577005DCA18 /* ObjectServicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */; };
 		0FA67BEF21A97FB2005DCA18 /* CharacVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */; };
-		0FA67BF121AAEF93005DCA18 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA67BF021AAEF93005DCA18 /* Login.storyboard */; };
-		0FA67BF321AAEFC2005DCA18 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BF221AAEFC2005DCA18 /* LoginVC.swift */; };
 		0FA67BF621AAF0D0005DCA18 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */; };
 		0FC4531521B9697600070E8C /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4531421B9697600070E8C /* GestureController.swift */; };
 		0FFB957C21BABAC300C5E4AF /* SearchBluetoothVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFB957B21BABAC300C5E4AF /* SearchBluetoothVC.swift */; };
@@ -102,10 +100,7 @@
 		0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccessoriesVC.swift; sourceTree = "<group>"; };
 		0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectServicesVC.swift; sourceTree = "<group>"; };
 		0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacVC.swift; sourceTree = "<group>"; };
-		0FA67BF021AAEF93005DCA18 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		0FA67BF221AAEFC2005DCA18 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
-		0FA67BF921AAF2D8005DCA18 /* iOSProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		0FC4531421B9697600070E8C /* GestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
 		0FFB957B21BABAC300C5E4AF /* SearchBluetoothVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBluetoothVC.swift; sourceTree = "<group>"; };
 		0FFB957D21BABAE500C5E4AF /* Bluetooth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Bluetooth.storyboard; sourceTree = "<group>"; };
@@ -155,10 +150,8 @@
 		0FA67BA521A93763005DCA18 /* iOSProject */ = {
 			isa = PBXGroup;
 			children = (
-				0FA67BF921AAF2D8005DCA18 /* iOSProject-Bridging-Header.h */,
 				0FA67BF421AAF09E005DCA18 /* SDK */,
 				0FA67BF821AAF17F005DCA18 /* Common */,
-				0FA67BF721AAF167005DCA18 /* Login */,
 				0FFB957921BABA7200C5E4AF /* HomeKit */,
 				0FFB957A21BABA8B00C5E4AF /* Bluetooth */,
 			);
@@ -203,15 +196,6 @@
 				0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */,
 			);
 			path = SDK;
-			sourceTree = "<group>";
-		};
-		0FA67BF721AAF167005DCA18 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				0FA67BF021AAEF93005DCA18 /* Login.storyboard */,
-				0FA67BF221AAEFC2005DCA18 /* LoginVC.swift */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		0FA67BF821AAF17F005DCA18 /* Common */ = {
@@ -357,7 +341,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FFB957E21BABAE500C5E4AF /* Bluetooth.storyboard in Resources */,
-				0FA67BF121AAEF93005DCA18 /* Login.storyboard in Resources */,
 				0FA67BB121A93764005DCA18 /* LaunchScreen.storyboard in Resources */,
 				0FA67BAE21A93764005DCA18 /* Assets.xcassets in Resources */,
 				0FA67BAC21A93763005DCA18 /* Main.storyboard in Resources */,
@@ -390,7 +373,6 @@
 			files = (
 				0FA67BE921A94045005DCA18 /* DefaultVC.swift in Sources */,
 				0FA67BED21A94577005DCA18 /* ObjectServicesVC.swift in Sources */,
-				0FA67BF321AAEFC2005DCA18 /* LoginVC.swift in Sources */,
 				0FA67BEF21A97FB2005DCA18 /* CharacVC.swift in Sources */,
 				0FA67BE521A93E5E005DCA18 /* HomeVC.swift in Sources */,
 				0FA67BA721A93763005DCA18 /* AppDelegate.swift in Sources */,
@@ -671,7 +653,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alkrox.iOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "iOSProject/iOSProject-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -696,7 +678,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alkrox.iOSProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "iOSProject/iOSProject-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

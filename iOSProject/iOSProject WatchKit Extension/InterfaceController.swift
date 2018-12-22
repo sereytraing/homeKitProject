@@ -11,14 +11,20 @@ import Foundation
 import WatchConnectivity
 
 class InterfaceController: WKInterfaceController {
-
+    
+    @IBOutlet weak var titleLabel: WKInterfaceLabel!
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
         // Configure interface objects here.
-        let session = WCSession.default
-        guard session.isReachable else {
-            return
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+            guard session.isReachable else {
+                return
+            }
         }
         
         /*session.sendMessage([
@@ -40,4 +46,29 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+}
+
+extension InterfaceController: WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("Watch OK \(activationState)")
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        print(userInfo)
+    }
+
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        replyHandler(["response": "envoyé depuis watch"])
+        print(message)
+        if let command = message["start"] as? String {
+            switch command {
+            case "yes":
+                self.pushController(withName: "GestureController", context: nil)
+                break
+                
+            default:
+                break
+            }
+        }
+    }
 }

@@ -36,10 +36,27 @@ class SearchBluetoothVC: DefaultVC {
                 self.service = service
             }
         }
+    }
+    
+    @IBAction func watchClicked(_ sender: Any) {
         
-        //Watch
+    }
+    
+    func initWatchConnect() {
+        let session = WCSession.default
+        guard session.isWatchAppInstalled, session.isReachable else {
+            return
+        }
+        //session.sendMessage(["start": "yes"], replyHandler: nil, errorHandler: nil)
+        session.sendMessage(["start": "yes"], replyHandler: {
+            reply in
+            print(reply)
+        }, errorHandler: {
+            e in
+            print(e)
+        })
+        
         if WCSession.isSupported() {
-            let session = WCSession.default
             session.delegate = self
             session.activate()
         }
@@ -66,23 +83,25 @@ class SearchBluetoothVC: DefaultVC {
         self.nameLabel.text = String(heartRate)
         let tmp = CGFloat(CGFloat(heartRate) / 100.0)
         print("val formule: \(tmp)")
-        self.connectedView.backgroundColor = UIColor(hue: tmp, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        self.connectedView.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
         //print("BPM: \(heartRate)")
         
         
         //HomeKit
         if let service = service {
             for charac in service.characteristics {
+                //Color
                 if charac.characteristicType == HMCharacteristicTypeHue {
                     if var value = charac.value as? Int {
                         value = Int(Double(heartRate)*3.6)
-                        charac.writeValue(value) {
+                        /*charac.writeValue(value) {
                             err in
                             print(err)
-                        }
+                        }*/
                     }
                 }
                 
+                //Brightness
                 if charac.characteristicType == HMCharacteristicTypeBrightness {
                     if var value = charac.value as? Int {
                         value = heartRate
@@ -94,8 +113,6 @@ class SearchBluetoothVC: DefaultVC {
                 }
             }
         }
-        
-        
     }
 }
 
@@ -119,7 +136,7 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        if peripheral.name == "MyHologramCommand" {
+        if peripheral.name == "SoundCaptor" {
             self.heartRatePeripheral = peripheral
             centralManager.stopScan()
             self.nameLabel.text = peripheral.name
@@ -134,6 +151,7 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("connected")
         print(peripheral)
+        self.initWatchConnect()
         self.loaderView.isHidden = true
         self.connectedView.isHidden = false
         //self.nameLabel.text = peripheral.name
@@ -150,7 +168,6 @@ extension SearchBluetoothVC: CBPeripheralDelegate {
             peripheral.discoverCharacteristics(nil, for: service)
             print(service)
         }
-        
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
@@ -182,27 +199,34 @@ extension SearchBluetoothVC: CBPeripheralDelegate {
 
 extension SearchBluetoothVC: WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("iPhone OK \(activationState)")
+        
     }
     
-    func sessionDidBecomeInactive(_ session: WCSession) { }
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
     
-    func sessionDidDeactivate(_ session: WCSession) { }
+    func sessionDidDeactivate(_ session: WCSession) {
+        
+    }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         replyHandler(["response": "envoyé depuis iphone"])
-        
-        if let command = message["direction"] as? String {
-            switch command {
-            case "start":
-                DispatchQueue.main.async {
-                    //self.initGame()
+        print(message)
+        if let hue = message["hue"] as? Double {
+            if let service = service {
+                for charac in service.characteristics {
+                    //Color
+                    if charac.characteristicType == HMCharacteristicTypeHue {
+                        if var value = charac.value as? Int {
+                            value = Int(hue)
+                            charac.writeValue(value) {
+                             err in
+                             print(err)
+                             }
+                        }
+                    }
                 }
-                break
-                
-            default:
-                //self.direction = command
-                break
             }
         }
     }

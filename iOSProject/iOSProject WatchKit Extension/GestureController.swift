@@ -8,7 +8,7 @@
 
 import WatchKit
 import Foundation
-
+import WatchConnectivity
 
 class GestureController: WKInterfaceController {
 
@@ -31,4 +31,17 @@ class GestureController: WKInterfaceController {
         super.didDeactivate()
     }
 
+    @IBAction func sliderClicked(_ value: Float) {
+        let session = WCSession.default
+        guard session.isReachable else {
+            return
+        }
+        session.sendMessage(["hue": value*10.0], replyHandler: {
+            reply in
+            print(reply)
+        }, errorHandler: {
+            e in
+            print(e)
+        })
+    }
 }

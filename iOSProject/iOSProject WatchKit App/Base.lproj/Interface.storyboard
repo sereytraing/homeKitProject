@@ -15,6 +15,9 @@
                     <items>
                         <label width="1" height="1" alignment="left" text="Aucune ampoule connectée" textAlignment="center" numberOfLines="0" id="f1d-JF-eNP"/>
                     </items>
+                    <connections>
+                        <outlet property="titleLabel" destination="f1d-JF-eNP" id="80k-9w-4wL"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="-91" y="29"/>
@@ -24,11 +27,14 @@
             <objects>
                 <controller identifier="GestureController" id="LRt-Kh-5aZ" customClass="GestureController" customModule="iOSProject_WatchKit_Extension">
                     <items>
-                        <slider width="1" alignment="left" value="1" maximum="3" steps="3" id="dhy-ps-Kxo"/>
-                        <slider width="1" alignment="left" value="1" maximum="3" steps="3" id="Nzi-qN-Xwi"/>
+                        <slider width="1" alignment="left" continuous="YES" maximum="36" steps="36" id="Nzi-qN-Xwi">
+                            <color key="color" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="sliderClicked:" destination="LRt-Kh-5aZ" id="zPL-lR-JuE"/>
+                            </connections>
+                        </slider>
                     </items>
                     <connections>
-                        <outlet property="brightnessSlider" destination="dhy-ps-Kxo" id="Ps4-sB-Onu"/>
                         <outlet property="hueSlider" destination="Nzi-qN-Xwi" id="cgU-Y9-4BI"/>
                     </connections>
                 </controller>

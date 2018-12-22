@@ -7,13 +7,12 @@
 //
 
 import UIKit
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let spotifyClientID = "376b8d03d45247fb85a1a2043832ce89"
-    let spotifyRedirectURL = URL(string: "spotify-ios-quick-start://spotify-login-callback")!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -36,20 +35,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-        print("success", session)
-    }
-    func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-        print("fail", error)
-    }
-    func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-        print("renewed", session)
-    }
 }
 
+extension AppDelegate: WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("iPhone OK \(activationState)")
+    }
+    func sessionDidBecomeInactive(_ session: WCSession) {}
+    func sessionDidDeactivate(_ session: WCSession) {}
+}
