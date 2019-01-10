@@ -14,7 +14,10 @@ class GestureController: WKInterfaceController {
 
     @IBOutlet weak var hueSlider: WKInterfaceSlider!
     
+    let session = WCSession.default
     let keyHue = "hue"
+    let keyStop = "stop"
+    let yesValue = "yes"
     var crownAccumulator = 0.0
     var hueValue: Int = 0 {
         didSet {
@@ -29,6 +32,13 @@ class GestureController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         self.crownSequencer.delegate = self
+        if WCSession.isSupported() {
+            self.session.delegate = self
+            self.session.activate()
+            guard self.session.isReachable else {
+                return
+            }
+        }
     }
 
     override func willActivate() {
@@ -40,6 +50,7 @@ class GestureController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+        self.sendLeaveController()
     }
 
     @IBAction func sliderClicked(_ value: Float) {
@@ -49,13 +60,25 @@ class GestureController: WKInterfaceController {
     func sendValue(value: Int) {
         let val = Double(value) / 36
         self.hueSlider.setColor(UIColor.init(hue: CGFloat(val), saturation: 1.0, brightness: 1.0, alpha: 1.0))
-        let session = WCSession.default
-        guard session.isReachable else {
+        guard self.session.isReachable else {
             return
         }
-        session.sendMessage([self.keyHue: value*10], replyHandler: {
+        self.session.sendMessage([self.keyHue: value*10], replyHandler: {
             reply in
-            print(reply)
+            //print(reply)
+        }, errorHandler: {
+            e in
+            print(e)
+        })
+    }
+    
+    func sendLeaveController() {
+        guard self.session.isReachable else {
+            return
+        }
+        self.session.sendMessage([self.keyStop: self.yesValue], replyHandler: {
+            reply in
+            //print(reply)
         }, errorHandler: {
             e in
             print(e)
@@ -72,6 +95,27 @@ extension GestureController: WKCrownDelegate {
         } else if crownAccumulator < -0.1 {
             self.hueValue -= 1
             self.crownAccumulator = 0.0
+        }
+    }
+}
+
+extension GestureController: WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("Watch OK \(activationState)")
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {}
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        replyHandler(["response": "envoyé depuis watch"])
+        if let value = message[self.keyStop] as? String {
+            switch value {
+            case self.yesValue:
+                self.pop()
+                break
+            default:
+                break
+            }
         }
     }
 }

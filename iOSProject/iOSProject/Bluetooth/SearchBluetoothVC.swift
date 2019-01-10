@@ -29,9 +29,17 @@ class SearchBluetoothVC: DefaultVC {
     let keyHue = "hue"
     let keyStart = "start"
     let yesValue = "yes"
+    let keyStop = "stop"
+    
+    let session = WCSession.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if WCSession.isSupported() {
+            self.session.delegate = self
+            self.session.activate()
+        }
+        
         self.backView.layer.cornerRadius = 15.0
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
 
@@ -44,26 +52,21 @@ class SearchBluetoothVC: DefaultVC {
     }
     
     @IBAction func backClicked(_ sender: Any) {
+        self.sendLeaveViewController()
         self.navigationController?.popViewController(animated: true)
     }
     
     func initWatchConnect() {
-        let session = WCSession.default
-        guard session.isWatchAppInstalled, session.isReachable else {
+        guard self.session.isReachable else {
             return
         }
-        session.sendMessage([self.keyStart: self.yesValue], replyHandler: {
+        self.session.sendMessage([self.keyStart: self.yesValue], replyHandler: {
             reply in
-            print(reply)
+            //print(reply)
         }, errorHandler: {
             e in
             print(e)
         })
-        
-        if WCSession.isSupported() {
-            session.delegate = self
-            session.activate()
-        }
     }
     
     func soundCaptorConvert(from characteristic: CBCharacteristic) -> Int {
@@ -77,10 +80,6 @@ class SearchBluetoothVC: DefaultVC {
     }
     
     func soundReceived(_ sound: Int) {
-        /*let tmp = CGFloat(CGFloat(sound) / 100.0)
-        print("val formule: \(tmp)")
-        self.connectedView.backgroundColor = UIColor(hue: 1.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)*/
-        
         //HomeKit
         if let service = service {
             for charac in service.characteristics {
@@ -90,12 +89,25 @@ class SearchBluetoothVC: DefaultVC {
                         value = sound
                         charac.writeValue(value) {
                             err in
-                            print(err)
+                            print(err ?? "")
                         }
                     }
                 }
             }
         }
+    }
+    
+    func sendLeaveViewController() {
+        guard self.session.isReachable else {
+            return
+        }
+        self.session.sendMessage([self.keyStop: self.yesValue], replyHandler: {
+            reply in
+            print(reply)
+        }, errorHandler: {
+            e in
+            print(e)
+        })
     }
 }
 
@@ -134,6 +146,7 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        self.sendLeaveViewController()
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -186,11 +199,22 @@ extension SearchBluetoothVC: WCSessionDelegate {
                             value = Int(hue)
                             charac.writeValue(value) {
                              err in
-                                print(err)
+                                print(err ?? "")
                              }
                         }
                     }
                 }
+            }
+        }
+        else if let value = message[self.keyStop] as? String {
+            switch value {
+            case self.yesValue:
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                break
+            default:
+                break
             }
         }
     }

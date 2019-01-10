@@ -19,6 +19,13 @@ class InterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+    }
+    
+    override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
+        // Listen again for response if push->pop
+        // In awake, can't reach session
         if WCSession.isSupported() {
             let session = WCSession.default
             session.delegate = self
@@ -29,16 +36,10 @@ class InterfaceController: WKInterfaceController {
         }
     }
     
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-    
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
 }
 
 extension InterfaceController: WCSessionDelegate {
