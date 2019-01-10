@@ -87,13 +87,7 @@ extension AccessoriesVC: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Testing Service and Charac'
-        /*if let objectServiceVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ObjectServicesVC") as? ObjectServicesVC {
-            objectServiceVC.selectedAccessory = self.lightBulbAccessories[indexPath.row]
-            self.navigationController?.pushViewController(objectServiceVC, animated: true)
-        }*/
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {        
         if let searchBluetooth = UIStoryboard.init(name: "Bluetooth", bundle: Bundle.main).instantiateViewController(withIdentifier: "SearchBluetoothVC") as? SearchBluetoothVC {
             searchBluetooth.selectedAccessory = self.lightBulbAccessories[indexPath.row]
             self.navigationController?.pushViewController(searchBluetooth, animated: true)

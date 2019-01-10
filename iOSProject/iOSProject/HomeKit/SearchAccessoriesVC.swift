@@ -24,7 +24,6 @@ class SearchAccessoriesVC: DefaultVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Searching..."
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)

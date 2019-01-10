@@ -24,9 +24,6 @@
 		0FA67BE721A93FFC005DCA18 /* AccessoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BE621A93FFC005DCA18 /* AccessoriesVC.swift */; };
 		0FA67BE921A94045005DCA18 /* DefaultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BE821A94045005DCA18 /* DefaultVC.swift */; };
 		0FA67BEB21A94306005DCA18 /* SearchAccessoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */; };
-		0FA67BED21A94577005DCA18 /* ObjectServicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */; };
-		0FA67BEF21A97FB2005DCA18 /* CharacVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */; };
-		0FA67BF621AAF0D0005DCA18 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */; };
 		0FC4531521B9697600070E8C /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4531421B9697600070E8C /* GestureController.swift */; };
 		0FE9EE6221CEAD1A00FEE0D0 /* CellAccessory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FE9EE6121CEAD1A00FEE0D0 /* CellAccessory.xib */; };
 		0FF0244E21CEA9D500401CED /* CellAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF0244D21CEA9D500401CED /* CellAccessory.swift */; };
@@ -100,9 +97,6 @@
 		0FA67BE621A93FFC005DCA18 /* AccessoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoriesVC.swift; sourceTree = "<group>"; };
 		0FA67BE821A94045005DCA18 /* DefaultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultVC.swift; sourceTree = "<group>"; };
 		0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccessoriesVC.swift; sourceTree = "<group>"; };
-		0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectServicesVC.swift; sourceTree = "<group>"; };
-		0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacVC.swift; sourceTree = "<group>"; };
-		0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		0FC4531421B9697600070E8C /* GestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
 		0FE9EE6121CEAD1A00FEE0D0 /* CellAccessory.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellAccessory.xib; sourceTree = "<group>"; };
 		0FF0244D21CEA9D500401CED /* CellAccessory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAccessory.swift; sourceTree = "<group>"; };
@@ -116,7 +110,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FA67BE321A937F1005DCA18 /* HomeKit.framework in Frameworks */,
-				0FA67BF621AAF0D0005DCA18 /* SpotifyiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,7 +147,6 @@
 		0FA67BA521A93763005DCA18 /* iOSProject */ = {
 			isa = PBXGroup;
 			children = (
-				0FA67BF421AAF09E005DCA18 /* SDK */,
 				0FA67BF821AAF17F005DCA18 /* Common */,
 				0FFB957921BABA7200C5E4AF /* HomeKit */,
 				0FFB957A21BABA8B00C5E4AF /* Bluetooth */,
@@ -194,14 +186,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0FA67BF421AAF09E005DCA18 /* SDK */ = {
-			isa = PBXGroup;
-			children = (
-				0FA67BF521AAF0D0005DCA18 /* SpotifyiOS.framework */,
-			);
-			path = SDK;
-			sourceTree = "<group>";
-		};
 		0FA67BF821AAF17F005DCA18 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,8 +216,6 @@
 				0FA67BE421A93E5E005DCA18 /* HomeVC.swift */,
 				0FA67BEA21A94306005DCA18 /* SearchAccessoriesVC.swift */,
 				0FA67BE621A93FFC005DCA18 /* AccessoriesVC.swift */,
-				0FA67BEC21A94577005DCA18 /* ObjectServicesVC.swift */,
-				0FA67BEE21A97FB2005DCA18 /* CharacVC.swift */,
 			);
 			path = HomeKit;
 			sourceTree = "<group>";
@@ -388,8 +370,6 @@
 			files = (
 				0FF0244E21CEA9D500401CED /* CellAccessory.swift in Sources */,
 				0FA67BE921A94045005DCA18 /* DefaultVC.swift in Sources */,
-				0FA67BED21A94577005DCA18 /* ObjectServicesVC.swift in Sources */,
-				0FA67BEF21A97FB2005DCA18 /* CharacVC.swift in Sources */,
 				0FA67BE521A93E5E005DCA18 /* HomeVC.swift in Sources */,
 				0FA67BA721A93763005DCA18 /* AppDelegate.swift in Sources */,
 				0FA67BE721A93FFC005DCA18 /* AccessoriesVC.swift in Sources */,
