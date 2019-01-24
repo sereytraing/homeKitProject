@@ -35,6 +35,7 @@ class SearchBluetoothVC: DefaultVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Check WatchConnectivity
         if WCSession.isSupported() {
             self.session.delegate = self
             self.session.activate()
@@ -43,7 +44,7 @@ class SearchBluetoothVC: DefaultVC {
         self.backView.layer.cornerRadius = 15.0
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
 
-        //HomeKit
+        //HomeKit, search service type LightBulb -> config later color/brightness
         for service in self.selectedAccessory.services {
             if service.serviceType == HMServiceTypeLightbulb {
                 self.service = service
@@ -69,6 +70,7 @@ class SearchBluetoothVC: DefaultVC {
         })
     }
     
+    //Convert data from bluetooth object to Int
     func soundCaptorConvert(from characteristic: CBCharacteristic) -> Int {
         guard let characteristicData = characteristic.value else {
             return -1
@@ -97,6 +99,7 @@ class SearchBluetoothVC: DefaultVC {
         }
     }
     
+    //Send to watch, when you leave. Watch will pop view too
     func sendLeaveViewController() {
         guard self.session.isReachable else {
             return
@@ -108,6 +111,19 @@ class SearchBluetoothVC: DefaultVC {
             e in
             print(e)
         })
+    }
+    
+    func turnOnLight() {
+        if let service = self.service {
+            for charac in service.characteristics {
+                if charac.characteristicType == HMCharacteristicTypePowerState {
+                    charac.writeValue(true) {
+                        err in
+                        print(err ?? "")
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -140,6 +156,7 @@ extension SearchBluetoothVC: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         self.initWatchConnect()
+        self.turnOnLight()
         self.loaderView.isHidden = true
         self.connectedView.isHidden = false
         self.soundCaptorPeripheral.discoverServices(nil)

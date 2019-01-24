@@ -22,6 +22,8 @@ class HomeVC: DefaultVC {
         self.homeManager.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        //Use custom cell from xib
         self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)
         self.addView.layer.cornerRadius = 15.0
         self.navigationController?.setNavigationBarHidden(true, animated: true)

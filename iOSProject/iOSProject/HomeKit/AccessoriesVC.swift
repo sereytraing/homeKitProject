@@ -28,6 +28,8 @@ class AccessoriesVC: DefaultVC {
         self.titleLabel.text = self.selectedHome.name
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        //Use custom cell from xib
         self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)
         self.backView.layer.cornerRadius = 15.0
         self.addView.layer.cornerRadius = 15.0
@@ -36,10 +38,12 @@ class AccessoriesVC: DefaultVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.lightBulbAccessories = []
+        
+        //Check accessories(type: light bulb) to show, and refresh each time we go on the controller
         for accessory in self.selectedHome.accessories {
             for service in accessory.services {
                 if service.serviceType == HMServiceTypeLightbulb {
-                    lightBulbAccessories.append(accessory)
+                    self.lightBulbAccessories.append(accessory)
                 }
             }
         }

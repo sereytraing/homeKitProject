@@ -26,6 +26,8 @@ class SearchAccessoriesVC: DefaultVC {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        //Use custom cell from xib
         self.tableView.register(UINib(nibName: self.cellAccessoryName, bundle: nil), forCellReuseIdentifier: self.cellAccessoryName)
         self.accessoryBrowser = HMAccessoryBrowser()
         self.accessoryBrowser.delegate = self
