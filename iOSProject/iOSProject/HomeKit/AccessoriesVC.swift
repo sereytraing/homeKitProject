@@ -37,9 +37,13 @@ class AccessoriesVC: DefaultVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.lightBulbAccessories = []
-        
+        self.getLightBulb()
+        self.tableView.reloadData()
+    }
+    
+    func getLightBulb() {
         //Check accessories(type: light bulb) to show, and refresh each time we go on the controller
+        self.lightBulbAccessories = []
         for accessory in self.selectedHome.accessories {
             for service in accessory.services {
                 if service.serviceType == HMServiceTypeLightbulb {
@@ -47,7 +51,6 @@ class AccessoriesVC: DefaultVC {
                 }
             }
         }
-        self.tableView.reloadData()
     }
     
     @IBAction func backClicked(_ sender: Any) {
@@ -84,9 +87,8 @@ extension AccessoriesVC: UITableViewDelegate {
             let acc = self.lightBulbAccessories[indexPath.row]
             self.selectedHome.removeAccessory(acc) {
                 err in
-                if err == nil {
-                    self.tableView.reloadData()
-                }
+                self.getLightBulb()
+                self.tableView.reloadData()
             }
         }
     }
