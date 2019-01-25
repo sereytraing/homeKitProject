@@ -76,8 +76,6 @@ class SearchBluetoothVC: DefaultVC {
             return -1
         }
         let byteArray = [UInt8](characteristicData)
-        let firstBitValue = byteArray[0] & 0xFF
-        print(firstBitValue)
         return Int(byteArray[0])
     }
     

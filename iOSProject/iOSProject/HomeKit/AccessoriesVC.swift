@@ -46,7 +46,7 @@ class AccessoriesVC: DefaultVC {
         self.lightBulbAccessories = []
         for accessory in self.selectedHome.accessories {
             for service in accessory.services {
-                if service.serviceType == HMServiceTypeLightbulb {
+                if service.serviceType == HMServiceTypeLightbulb && accessory.isReachable {
                     self.lightBulbAccessories.append(accessory)
                 }
             }
